@@ -62,7 +62,9 @@
     "cross-env": "^7.0.2",
     "postcss-comment": "^2.0.0",
     "typescript": "^3.0.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "less": "^3.11.1",
+    "less-loader": "^5.0.0"
   },
   "browserslist": [
     "Android >= 4",
