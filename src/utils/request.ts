@@ -12,17 +12,13 @@ const request = ({ url = '', method = 'GET', data = {}, tipName = '正在加载�
         };
         if (uni.getStorageSync('my_token')) {
             header.Authorization = uni.getStorageSync('my_token');
-        } else {
-
-        }
+        } 
         // 发送请求
         uni.request({
             url: `${BASEURL}${url}`,
             method,
             data,
-            header: {
-                'custom-header': 'hello' //自定义请求头信息
-            },
+            header,
             success: (res) => {
                 resolve(res);
             },
