@@ -6,7 +6,7 @@
     <button @getuserinfo="getUserInfo" open-type="getUserInfo" plain class="wx-login-button">
       <image class="wx-login-img" src="/static/images/wx_login@2x.png" mode />
     </button>
-    <view class="phone-login">手机号登录</view>
+    <view @click="goToPhoneLogin" class="phone-login">手机号登录</view>
     <text class="bottom-tip">Copyright © 2020 锦囊在线</text>
   </view>
 </template>
@@ -17,6 +17,15 @@ import request from "../../utils/request";
 export default Vue.extend({
   data() {
     return {};
+  },
+  onLoad() {
+    // 判断本地存储是否有token
+    if (uni.getStorageSync("my_token")) {
+      // 跳转到首页
+      uni.reLaunch({
+        url: "/pages/home/index"
+      });
+    }
   },
   methods: {
     // 获取用户信息
@@ -57,6 +66,13 @@ export default Vue.extend({
         });
       }
     },
+    // 跳转到手机号登录页面
+    goToPhoneLogin() {
+      // 注意：路径开头要加/
+      uni.navigateTo({
+        url: "/pages/phone-login/index"
+      });
+    }
   }
 });
 </script>

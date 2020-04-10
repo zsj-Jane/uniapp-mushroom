@@ -7,6 +7,12 @@
 			}
 		},
 		{
+			"path": "pages/phone-login/index",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{
 			"path": "pages/home/index",
 			"style": {
 				"navigationBarTitleText": "锦囊课堂"
