@@ -2,9 +2,9 @@
   <view class="login-container">
     <image class="logo" src="/static/images/silkbag.png" mode />
     <text class="title">锦囊在线</text>
-    <image class="login-tips" src="/static/images/login_tips@2x.png" mode="" />
-    <button plain class="wx-login-button">
-        <image class="wx-login-img" src="/static/images/wx_login@2x.png" mode="" />
+    <image class="login-tips" src="/static/images/login_tips@2x.png" mode />
+    <button @getuserinfo="getUserInfo" open-type="getUserInfo" plain class="wx-login-button">
+      <image class="wx-login-img" src="/static/images/wx_login@2x.png" mode />
     </button>
     <view class="phone-login">手机号登录</view>
     <text class="bottom-tip">Copyright © 2020 锦囊在线</text>
@@ -13,7 +13,52 @@
 
 <script lang="ts">
 import Vue from "vue";
-export default Vue.extend({});
+import request from "../../utils/request";
+export default Vue.extend({
+  data() {
+    return {};
+  },
+  methods: {
+    // 获取用户信息
+    getUserInfo(e: any) {
+      if (e.detail.errMsg == "getUserInfo:fail auth deny") {
+        // 若微信授权不成功，则返回
+        return;
+      } else {
+        // 获取用户信息中的头像、昵称
+        const { avatarUrl: avatar, nickName: nickname } = e.detail.userInfo;
+        // 调用wx.login接口，拿到临时code
+        uni.login({
+          provider: "weixin",
+          success: async ({ code }) => {
+            // 发送请求，微信授权登录
+            const res: any = await request({
+              url: "user/wxlogin",
+              method: "POST",
+              data: { code, nickname, avatar },
+              tipName: "微信授权登录中..."
+            });
+            // 当登录成功后
+            if (res.data.status === 0) {
+              // 消息提示
+              uni.showToast({
+                title: res.data.message,
+                icon: "none",
+                duration: 1000
+              });
+              // 本地保存token
+              uni.setStorageSync("my_token", res.data.token);
+              // 跳转到首页
+              uni.switchTab({
+                url: "/pages/home/index"
+              });
+            }
+          }
+        });
+      }
+    },
+  }
+});
 </script>
 
 <style lang="less" scoped>
