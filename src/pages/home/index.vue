@@ -1,5 +1,7 @@
 <template>
   <view class="home-container">
+    <!-- 搜索框 -->
+    <searchBar tipName="请输入课程名称"></searchBar>
     <!-- 轮播图 -->
     <swiper
       class="swiper"
@@ -41,7 +43,11 @@
 <script lang="ts">
 import Vue from "vue";
 import request from "../../utils/request";
+import searchBar from "../../components/search-bar/index.vue";
 export default Vue.extend({
+  components:{
+    searchBar
+  },
   data() {
     return {
       // 轮播图
