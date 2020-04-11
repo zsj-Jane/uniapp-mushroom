@@ -33,7 +33,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      keyword: "编程",
+      keyword: "",
       courses: [],
       isFocus:false
     };

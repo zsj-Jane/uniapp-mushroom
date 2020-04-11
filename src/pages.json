@@ -21,19 +21,21 @@
 		{
 			"path": "pages/course/index",
 			"style": {
-				"navigationBarTitleText": "锦囊课堂"
+				"navigationBarTitleText": "课程"
 			}
 		},
 		{
 			"path": "pages/study/index",
 			"style": {
-				"navigationBarTitleText": "锦囊课堂"
+				"navigationBarTitleText": "学习进度"
 			}
 		},
 		{
 			"path": "pages/my/index",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "我的",
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor": "#ff8d44"
 			}
 		},
 		{
