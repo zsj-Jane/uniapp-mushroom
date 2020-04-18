@@ -1,12 +1,19 @@
 <template>
   <view class="study-container">
-    <view class="study-item" v-for="item in studyProgress" :key="item.sid">
-      <image :src="item.icon" mode />
-      <view class="meta">
-        <view class="title">{{item.title}}</view>
-        <view class="progress">已学习{{item.study_hour}}课时/{{item.total_hour}}课时</view>
+    <view v-if="studyProgress">
+      <view class="study-item" v-for="item in studyProgress" :key="item.sid">
+        <image :src="item.icon" mode />
+        <view class="meta">
+          <view class="title">{{item.title}}</view>
+          <view class="progress">已学习{{item.study_hour}}课时/{{item.total_hour}}课时</view>
+        </view>
+        <view class="circle">
+          <circle :canvasId="item.sid" :width="55" :height="55" :progress="item.study_progress"></circle>
+        </view>
       </view>
-      <view class="circle">进度</view>
+    </view>
+    <view v-else>
+      <text class="no-study-tip">您还没有任何学习记录哦，赶快去学习吧</text>
     </view>
   </view>
 </template>
@@ -14,7 +21,11 @@
 <script lang="ts">
 import Vue from "vue";
 import request from "../../utils/request";
+import circle from '../../components/circle/index.vue';
 export default Vue.extend({
+  components:{
+    circle
+  },
   data() {
     return {
       studyProgress: null
