@@ -1,6 +1,6 @@
 <template>
   <view class="course-container">
-    <view v-for="item in courses" :key="item.id" class="course-item">
+    <navigator :url="'/pages/course-detail/index?id='+item.id" v-for="item in courses" :key="item.id" class="course-item">
       <image class="img" :src="item.icon" mode />
       <text class="title">{{item.title}}</text>
       <text class="subtitle">{{item.subtitle}}</text>
@@ -9,7 +9,7 @@
         <text v-else-if="item.level==2">中级</text>
         <text v-else>高级</text>
       </view>
-    </view>
+    </navigator>
   </view>
 </template>
 
