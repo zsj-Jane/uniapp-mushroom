@@ -1,6 +1,7 @@
 <template>
   <view class="search-container">
-    <view class="search-head">
+    <!-- 自己写的方法 -->
+    <!-- <view class="search-head">
       <input
         v-model="keyword"
         class="search-input"
@@ -11,6 +12,16 @@
       />
       <icon class="icon-search" type="search" size="15"></icon>
       <text v-show="isFocus" @click="cancel" class="search-button">取消</text>
+    </view>-->
+    <view class="search-head">
+      <!-- 使用uni-ui插件 -->
+      <uni-search-bar
+        class="search-bar"
+        type="text"
+        :radius="100"
+        @cancel="cancel"
+        @confirm="search"
+      ></uni-search-bar>
     </view>
     <view class="search-body">
       <view class="empty" v-if="courses.length==0">
@@ -27,31 +38,48 @@
 import Vue from "vue";
 import request from "../../utils/request";
 import courseList from "../../components/course-list/index.vue";
+import uniSearchBar from "@dcloudio/uni-ui//lib/uni-search-bar/uni-search-bar.vue";
 export default Vue.extend({
   components: {
     courseList,
+    uniSearchBar
   },
   data() {
     return {
+      // 自己写的
       keyword: "",
-      courses: [],
-      isFocus:false
+      isFocus: false,
+      // 课程信息
+      courses: []
     };
   },
   methods: {
-     focus() {
-      this.isFocus = true
-    },
-    cancel() {
-      this.keyword = ''
-      this.isFocus = false
-      this.search();
-    },
-    async search() {
+    // 自己写的搜索框的方法
+    // focus() {
+    //   this.isFocus = true
+    // },
+    // cancel() {
+    //   this.keyword = ''
+    //   this.isFocus = false
+    //   this.search();
+    // },
+    // async search() {
+    //   let res: any = await request({
+    //     url: "course/search",
+    //     data: {
+    //       name: this.keyword
+    //     }
+    //   });
+    //   if (res.data.status === 0) {
+    //     this.courses = res.data.message;
+    //   }
+    // },
+    // 使用uni-ui插件，写的方法
+    async search(e: any) {
       let res: any = await request({
         url: "course/search",
         data: {
-          name: this.keyword
+          name: e.value
         }
       });
       if (res.data.status === 0) {
@@ -72,6 +100,9 @@ export default Vue.extend({
   padding: 30rpx 0;
   background-color: #fff;
   display: flex;
+}
+.search-bar {
+  width: 100%;
 }
 .search-input {
   margin-left: 30rpx;
