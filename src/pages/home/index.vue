@@ -11,31 +11,48 @@
       :duration="1000"
       :circular="true"
     >
-      <swiper-item v-for="item in swipers" :key="item.id">
-        <image :src="item.img_url" mode />
-      </swiper-item>
+      <navigator
+        v-for="item in swipers"
+        :key="item.id"
+        :url="'/pages/course-detail/index?id='+item.course_id"
+        redirect
+      >
+        <swiper-item>
+          <image :src="item.img_url" mode />
+        </swiper-item>
+      </navigator>
     </swiper>
     <!-- 推荐课程 -->
-    <view class="tips">
+    <view @click="goToCourse" class="tips">
       <text>推荐课程</text>
       <image src="/static/images/arrow@2x.png" mode />
     </view>
     <scroll-view scroll-x="true" class="course-container">
-      <view class="course-item" v-for="item in courses" :key="item.id">
+      <navigator
+        :url="'/pages/course-detail/index?id='+item.relation_id"
+        class="course-item"
+        v-for="item in courses"
+        :key="item.id"
+      >
         <image :src="item.icon" mode />
-      </view>
+      </navigator>
     </scroll-view>
     <!-- 热门视频 -->
-    <view class="tips">
+    <view @click="goToCourseDetail(3)" class="tips">
       <text>热门视频</text>
       <image src="/static/images/arrow@2x.png" mode />
     </view>
     <view class="hot-video">
-      <view class="video-item" v-for="item in videos" :key="item.id">
+      <navigator
+        :url="'/pages/course-detail/index?id='+item.course_id"
+        class="video-item"
+        v-for="item in videos"
+        :key="item.id"
+      >
         <image :src="item.cover_photo_url" mode />
         <view class="title">{{item.name}}</view>
         <view class="subtitle">{{item.view_count}}人次已观看</view>
-      </view>
+      </navigator>
     </view>
   </view>
 </template>
@@ -45,7 +62,7 @@ import Vue from "vue";
 import request from "../../utils/request";
 import searchBar from "../../components/search-bar/index.vue";
 export default Vue.extend({
-  components:{
+  components: {
     searchBar
   },
   data() {
@@ -87,6 +104,18 @@ export default Vue.extend({
       if (res.data.status === 0) {
         this.videos = res.data.message;
       }
+    },
+    // 跳转到课程页面
+    goToCourse() {
+      uni.switchTab({
+        url: "/pages/course/index"
+      });
+    },
+    // 跳转到课程详情页面
+    goToCourseDetail(id:Number) {
+      uni.navigateTo({
+        url: `/pages/course-detail/index?id=${id}`
+      });
     }
   }
 });
