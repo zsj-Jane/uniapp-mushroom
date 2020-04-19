@@ -16,10 +16,12 @@
         <text>{{courseInfo.course.title}}</text>
         <text>¥{{courseInfo.course.price}}</text>
       </view>
-      <text class="introduce">{{courseInfo.course.introduction}}</text>
+      <view class="introduce">{{courseInfo.course.introduction}}</view>
       <view class="star">
         <!-- uni-ui中的评分插件 -->
-        <uni-rate size="10" :value="courseInfo.course.score"></uni-rate>
+        <!-- <uni-rate size="10" :value="courseInfo.course.score"></uni-rate> -->
+        <!-- 自定义评分组件 -->
+        <star :score="courseInfo.course.score"></star>
         <text>{{courseInfo.course.study_count}}人在学</text>
       </view>
       <view class="study-share">
@@ -34,11 +36,13 @@
 import Vue from "vue";
 import request from "../../utils/request";
 // 导入uni-ui中的评级组件
-import uniRate from "@dcloudio/uni-ui//lib/uni-rate/uni-rate.vue";
+// import uniRate from "@dcloudio/uni-ui//lib/uni-rate/uni-rate.vue";
+// 自定义评分组件
+import star from '../../components/star/index.vue';
 export default Vue.extend({
   components: {
-    uniRate
-    // star
+    // uniRate,
+    star
   },
   data() {
     return {
