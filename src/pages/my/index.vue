@@ -53,7 +53,7 @@ export default Vue.extend({
       userInfo: {}
     };
   },
-  onLoad() {
+  onShow() {
     // 获取用户个人信息
     this.getUserInfoData();
   },
