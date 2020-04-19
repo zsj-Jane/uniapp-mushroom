@@ -18,6 +18,8 @@
       </view>
       <text class="introduce">{{courseInfo.course.introduction}}</text>
       <view class="star">
+        <!-- uni-ui中的评分插件 -->
+        <uni-rate size="10" :value="courseInfo.course.score"></uni-rate>
         <text>{{courseInfo.course.study_count}}人在学</text>
       </view>
       <view class="study-share">
@@ -31,7 +33,13 @@
 <script lang="ts">
 import Vue from "vue";
 import request from "../../utils/request";
+// 导入uni-ui中的评级组件
+import uniRate from "@dcloudio/uni-ui//lib/uni-rate/uni-rate.vue";
 export default Vue.extend({
+  components: {
+    uniRate
+    // star
+  },
   data() {
     return {
       // 课程id
