@@ -26,7 +26,7 @@
       </view>
       <view class="study-share">
         <image src="/static/images/start_study@2x.png" mode />
-        <view class="share-button"></view>
+        <button open-type="share" class="share-button"></button>
       </view>
     </view>
   </view>
@@ -38,7 +38,7 @@ import request from "../../utils/request";
 // 导入uni-ui中的评级组件
 // import uniRate from "@dcloudio/uni-ui//lib/uni-rate/uni-rate.vue";
 // 自定义评分组件
-import star from '../../components/star/index.vue';
+import star from "../../components/star/index.vue";
 export default Vue.extend({
   components: {
     // uniRate,
@@ -59,6 +59,20 @@ export default Vue.extend({
     this.id = options.id;
     // 发请求，获取数据
     this.getCourseInfoData();
+  },
+  // 用户点击右上角分享的方法
+  onShareAppMessage(res) {
+    if (res.from === 'button') {// 来自页面内分享按钮
+      console.log(res.target)
+    }
+    if (!this.courseInfo) {
+      return {}
+    }
+    return {
+      title: this.courseInfo.course.title,
+      // path: `/pages/course-detail/index?id=${this.id}`,
+      imageUrl:this.courseInfo.course.cover_image_url
+    }
   },
   methods: {
     // 获取课程详情数据
